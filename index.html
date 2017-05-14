@@ -75,13 +75,13 @@
 
   				var sentence = $('#sentence').val();
   				
+  				
 
   				//Algorithm starts here
   				//first split sentence into words
   				var words= sentence.split(" ");
-  				console.log(words);
 
-  				 var syllablesarray=[];
+  				 //var syllablesarray=[];
   				 var no_syllables=0;
   				// //Now check each word for syllables
   				 
@@ -120,14 +120,26 @@
   				 	//remove vowel if it is the last in the word as it should be silent
 
   				 	if(word[word.length-1]==="a" || word[word.length-1]==="e" || word[word.length-1] ==="i" || word[word.length-1] === "o" || word[word.length-1]==="u"){
-  				 		no_word_syllables-=1;
-  				 		//if the last vowel has been removed, changed the lenght to avoid clashing with removal of diphtongs
-  				 		newlength--;
+  				 		if(word[word.length-2]!="r"){
+  				 			no_word_syllables-=1;
+  				 			//if the last vowel has been removed, changed the lenght to avoid it appearing again as diphtongs
+  				 			newlength--;
+  				 		}
+  				 		
   				 	}
 
   				 	//add one if the last letter is y
   				 	if(word[word.length-1]==="y"){
   				 		no_word_syllables++;
+  				 	}
+  				 	//if word ends in "es" or "ed" remove 1
+  				 	if(word[word.length-2]=="e" && word[word.length-1]=="s"){
+  				 		no_word_syllables--;
+  				 		newlength-=2;
+  				 	}
+  				 	if(word[word.length-2]=="e" && word[word.length-1]=="d"){
+  				 		no_word_syllables--;
+  				 		newlength-=2;
   				 	}
 
   				 	//removing diphtongs

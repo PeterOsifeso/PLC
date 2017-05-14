@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Syllable Counter</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/icomoon/style.css">
+		<link rel="stylesheet" href="css/summer.css" class="colors">
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+	</head>
+
+	<body id="home">
+	<div id="loading"> <img id="loading-image" src="img/ajax-loader.gif" alt="Loading..."> </div>		
+		<div id="header">
+		<div class="header-content">
+				<div class="row">
+					<h1>Syllable Counter</h1>
+				</div>
+				<div class="row">					
+					<form id="form" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 myform">
+						<div class="input-group">
+							<input id="sentence" name="sentence" placeholder="Enter your sentence" pattern=".{1,}"   required title="1 characters minimum"class="form-control input-lg requiredField" type="text">
+							<span class="input-group-btn">
+								
+								<button id="submit" name="submit" type="submit" class="btn" >Check!</button>
+
+							</span>
+						</div>
+						<input type="hidden" name="submitted" id="submitted2" value="true">
+					</form>
+				</div>	
+				</div>
+			</div>
+			
+			<section class="results">
+				<h3> Number of syllables: <span id="no_syllables"></span> </h3>
+				<h3> Syllables are: <span id="syllable"></span> </h3>
+			</section>
+
+			<div class="container">
+				<div class="row">
+					<div>
+						<ul class="social-links text-center">
+							<li><a href="#link"><i class="icon-twitter"></i></a></li>
+							<li><a href="#link"><i class="icon-facebook"></i></a></li>
+							<li><a href="#link"><i class="icon-googleplus"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<footer>
+				<p class="text-center copyright">&copy; Syllable Counter Designed by US.<br>
+				</p>
+			</footer>
+		</div>
+		</div>
+
+		<script language="javascript" type="text/javascript">
+     		//on page load
+     		$(document).ready(function(){
+     			$('#loading').hide();
+     			$('.results').hide();
+  			});
+  			
+     		//on form submit
+  			$( "#form" ).submit(function( event ) {
+  				
+  				//refresh dom to avoid appending to previous  result
+  				$('#no_syllables').empty();
+  				$('#syllable').empty();
+
+  				$('#loading').show();
+
+  				var sentence = $('#sentence').val();
+  				//alert("The sentence you typed is "+sentence);
+  				//algorithm goes here
+
+  				//first split sentence into words
+  				var words= sentence.split(" ");
+  				console.log(words);
+
+  				 var syllablesarray=[];
+  				// //Now check each word for syllables
+  				 for (var i=0; i<words.length; i++){
+  					getSyllables(words[i]);
+
+  				 }
+
+  				 function getSyllables(word){
+  				 	if(word.length<=3){
+  				 		syllablesarray.push(word.substring(0,3));
+  			 		}
+  				}
+  		
+
+
+
+  				// //after checking all the details.. show the results page and hide the loading 
+
+  				// //Appending the result
+  				$('#no_syllables').append(syllablesarray.length);
+  				
+  				for(var i=0; i<syllablesarray.length; i++){
+  					$('#syllable').append(syllablesarray[i]);
+  				}
+
+  				$('.results').show();
+  				$('#loading').hide();
+  				
+  				event.preventDefault();
+			});
+			// $( "#sentence" ).click(function() {
+  	// 			alert( "Handler for .click() called." );
+			// });
+
+		</script>
+	</body>
+</html>

@@ -69,14 +69,14 @@
   				
   				//refresh dom to avoid appending to previous  result
   				$('#no_syllables').empty();
-  				$('#syllable').empty();
+  				//$('#syllable').empty();
 
   				$('#loading').show();
 
   				var sentence = $('#sentence').val();
-  				//alert("The sentence you typed is "+sentence);
-  				//algorithm goes here
+  				
 
+  				//Algorithm starts here
   				//first split sentence into words
   				var words= sentence.split(" ");
   				console.log(words);
@@ -94,20 +94,15 @@
 
   				 }
 
-  				 function getSyllables(word){
-  				 	if(word.length<=3){
-  				 		syllablesarray.push(word.substring(0,3));
-  			 		}
-  				}
-
   				function getNoSyllables(word){
   				 	//count no of vowels
   				 	//console.log(word);
   				 	word = word.toLowerCase();
+  				 	var no_word_syllables=0;
   				 	var no_vowels=0;
 
-  				 	if(word.length<3){
-  				 		no_vowels++;
+  				 	//if the word is less than 3 letters, it is just one syllable
+  				 	if(word.length<=3){
   				 		return 1;
   				 	}
   				 	
@@ -116,6 +111,8 @@
   				 			no_vowels+=1;
   				 		}
   				 	}
+  				 	no_word_syllables+=no_vowels;
+
   				 	//console.log("The number of vowels is "+ no_vowels);
 
   				 	var newlength= word.length;	 
@@ -123,90 +120,95 @@
   				 	//remove vowel if it is the last in the word as it should be silent
 
   				 	if(word[word.length-1]==="a" || word[word.length-1]==="e" || word[word.length-1] ==="i" || word[word.length-1] === "o" || word[word.length-1]==="u"){
-  				 		no_vowels-=1;
+  				 		no_word_syllables-=1;
   				 		//if the last vowel has been removed, changed the lenght to avoid clashing with removal of diphtongs
   				 		newlength--;
+  				 	}
+
+  				 	//add one if the last letter is y
+  				 	if(word[word.length-1]==="y"){
+  				 		no_word_syllables++;
   				 	}
 
   				 	//removing diphtongs
   				 	for (var i=0; i<newlength-1;i++){
   				 		if(word[i]=="a" && word[i+1]=="a"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="a" && word[i+1]=="e"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="a" && word[i+1]=="i"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="a" && word[i+1]=="o"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="a" && word[i+1]=="u"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="e" && word[i+1]=="a"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="e" && word[i+1]=="e"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="e" && word[i+1]=="i"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="e" && word[i+1]=="o"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="e" && word[i+1]=="u"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="i" && word[i+1]=="a"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="i" && word[i+1]=="e"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="i" && word[i+1]=="i"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="i" && word[i+1]=="o"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="i" && word[i+1]=="u"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="o" && word[i+1]=="a"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="o" && word[i+1]=="e"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="o" && word[i+1]=="i"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="o" && word[i+1]=="o"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="o" && word[i+1]=="u"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="u" && word[i+1]=="a"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="u" && word[i+1]=="e"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="u" && word[i+1]=="i"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="u" && word[i+1]=="o"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 		if(word[i]=="u" && word[i+1]=="u"){
-  				 			no_vowels-=1;
+  				 			no_word_syllables-=1;
   				 		}
   				 	}
-  				 	return no_vowels;
+  				 	return no_word_syllables;
   				}
 
 

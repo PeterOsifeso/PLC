@@ -8,7 +8,6 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/icomoon/style.css">
-		<link rel="stylesheet" href="css/summer.css" class="colors">
 		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 	</head>
 
@@ -37,7 +36,7 @@
 			
 			<section class="results">
 				<h3> Number of syllables: <span id="no_syllables"></span> </h3>
-				<h3> Syllables are: <span id="syllable"></span> </h3>
+<!-- 				<h3> Syllables are: <span id="syllable"></span> </h3> -->
 			</section>
 
 			<div class="container">
@@ -83,9 +82,15 @@
   				console.log(words);
 
   				 var syllablesarray=[];
+  				 var no_syllables=0;
   				// //Now check each word for syllables
+  				 
   				 for (var i=0; i<words.length; i++){
-  					getSyllables(words[i]);
+  				 	
+  				 	//getNoSyllables(words[i]);
+  				 	no_syllables+=getNoSyllables(words[i]);
+  					
+  					//getSyllables(words[i]);
 
   				 }
 
@@ -94,18 +99,126 @@
   				 		syllablesarray.push(word.substring(0,3));
   			 		}
   				}
-  		
+
+  				function getNoSyllables(word){
+  				 	//count no of vowels
+  				 	//console.log(word);
+  				 	word = word.toLowerCase();
+  				 	var no_vowels=0;
+
+  				 	if(word.length<3){
+  				 		no_vowels++;
+  				 		return 1;
+  				 	}
+  				 	
+  				 	for (var i=0; i<word.length;i++){
+  				 		if(word[i]==="a" || word[i]==="e" || word[i]==="i" || word[i]==="o" ||word[i]==="u"){
+  				 			no_vowels+=1;
+  				 		}
+  				 	}
+  				 	//console.log("The number of vowels is "+ no_vowels);
+
+  				 	var newlength= word.length;	 
+
+  				 	//remove vowel if it is the last in the word as it should be silent
+
+  				 	if(word[word.length-1]==="a" || word[word.length-1]==="e" || word[word.length-1] ==="i" || word[word.length-1] === "o" || word[word.length-1]==="u"){
+  				 		no_vowels-=1;
+  				 		//if the last vowel has been removed, changed the lenght to avoid clashing with removal of diphtongs
+  				 		newlength--;
+  				 	}
+
+  				 	//removing diphtongs
+  				 	for (var i=0; i<newlength-1;i++){
+  				 		if(word[i]=="a" && word[i+1]=="a"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="a" && word[i+1]=="e"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="a" && word[i+1]=="i"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="a" && word[i+1]=="o"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="a" && word[i+1]=="u"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="e" && word[i+1]=="a"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="e" && word[i+1]=="e"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="e" && word[i+1]=="i"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="e" && word[i+1]=="o"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="e" && word[i+1]=="u"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="i" && word[i+1]=="a"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="i" && word[i+1]=="e"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="i" && word[i+1]=="i"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="i" && word[i+1]=="o"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="i" && word[i+1]=="u"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="o" && word[i+1]=="a"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="o" && word[i+1]=="e"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="o" && word[i+1]=="i"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="o" && word[i+1]=="o"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="o" && word[i+1]=="u"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="u" && word[i+1]=="a"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="u" && word[i+1]=="e"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="u" && word[i+1]=="i"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="u" && word[i+1]=="o"){
+  				 			no_vowels-=1;
+  				 		}
+  				 		if(word[i]=="u" && word[i+1]=="u"){
+  				 			no_vowels-=1;
+  				 		}
+  				 	}
+  				 	return no_vowels;
+  				}
 
 
 
   				// //after checking all the details.. show the results page and hide the loading 
 
   				// //Appending the result
-  				$('#no_syllables').append(syllablesarray.length);
+  				$('#no_syllables').append(no_syllables);
   				
-  				for(var i=0; i<syllablesarray.length; i++){
-  					$('#syllable').append(syllablesarray[i]);
-  				}
+  				// for(var i=0; i<syllablesarray.length; i++){
+  				// 	$('#syllable').append(syllablesarray[i]);
+  				// }
 
   				$('.results').show();
   				$('#loading').hide();

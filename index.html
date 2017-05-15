@@ -141,6 +141,12 @@
   				 		no_word_syllables--;
   				 		newlength-=2;
   				 	}
+            //if word ends in "da" add 1
+
+            if(word[word.length-2]=="d" && word[word.length-1]=="a"){
+              no_word_syllables++;
+              //newlength-=2;
+            }
 
   				 	//removing diphtongs
   				 	for (var i=0; i<newlength-1;i++){
